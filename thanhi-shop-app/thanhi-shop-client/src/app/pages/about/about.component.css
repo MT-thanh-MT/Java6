@@ -1,0 +1,7 @@
+.mkdf-separator {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  border-bottom: 1px solid #b2b2b2;
+  margin: 10px 0;
+}

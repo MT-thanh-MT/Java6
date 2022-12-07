@@ -24,7 +24,7 @@ public class AccountRestController {
     @PostMapping("/sing-up")
     public ResponseEntity<AccountDTO> singUp(@Valid  @RequestBody AccountDTO accDto) {
         Account account = accountMapper.toEntity(accDto);
-        accountService.createAccount(account);
+        accDto = accountMapper.toDto(accountService.createAccount(account));
         return ResponseEntity.ok().body(accDto);
     }
 }

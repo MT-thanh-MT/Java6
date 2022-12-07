@@ -21,6 +21,16 @@ public class ExceptionHandlerController {
         return setResponseErrorMessage(ex,request,HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<ErrorMessage> accountNotFoundException(AccountNotFoundException ex, WebRequest request) {
+        return setResponseErrorMessage(ex, request, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AccountNotActivatedException.class)
+    public ResponseEntity<ErrorMessage> accountNotActivatedException(AccountNotActivatedException ex, WebRequest request) {
+        return setResponseErrorMessage(ex, request, HttpStatus.NOT_ACCEPTABLE);
+    }
+
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ErrorMessage> usernameNotFoundException(UsernameNotFoundException ex, WebRequest request) {
         return setResponseErrorMessage(ex,request,HttpStatus.NOT_FOUND);
@@ -36,7 +46,22 @@ public class ExceptionHandlerController {
         return setResponseErrorMessage(ex,request,HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(ServletException.class)
+    @ExceptionHandler(ProductAlreadyExistsException.class)
+    public ResponseEntity<ErrorMessage> productAlreadyExistsException(ProductAlreadyExistsException ex, WebRequest request) {
+        return setResponseErrorMessage(ex,request,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ErrorMessage> productNotFoundException(ProductNotFoundException ex, WebRequest request) {
+        return setResponseErrorMessage(ex, request, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<ErrorMessage> orderNotFoundException(OrderNotFoundException ex, WebRequest request) {
+        return setResponseErrorMessage(ex, request, HttpStatus.BAD_REQUEST);
+    }
+
+        @ExceptionHandler(ServletException.class)
     public ResponseEntity<ErrorMessage> expiredJwtException(ServletException ex, WebRequest request) {
         ErrorMessage message = new ErrorMessage(
                 HttpStatus.UNAUTHORIZED.value(),

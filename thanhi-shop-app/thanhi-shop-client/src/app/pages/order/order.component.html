@@ -1,0 +1,99 @@
+<!--<div class="_0obGFe">
+  <a class="vAkdD0 r-S3nG" href="/user/purchase/?type=6"><span class="_0rjE9m">Tất cả</span></a>
+  <a class="vAkdD0" href="/user/purchase/?type=9"><span class="_0rjE9m">Chờ xác nhận</span></a>
+  <a class="vAkdD0" href="/user/purchase/?type=7"><span class="_0rjE9m">Chờ lấy hàng</span></a>
+  <a class="vAkdD0" href="/user/purchase/?type=8"><span class="_0rjE9m">Đang giao</span></a>
+  <a class="vAkdD0" href="/user/purchase/?type=3"><span class="_0rjE9m">Đã giao</span></a>
+  <a class="vAkdD0" href="/user/purchase/?type=4"><span class="_0rjE9m">Đã Hủy</span></a>
+  <a class="vAkdD0" href="/user/purchase/?type=12"><span class="_0rjE9m">Trả hàng/Hoàn tiền</span></a>
+</div>-->
+
+<div class="container text-center">
+  <div class="text-center ">
+    <ul class="nav justify-content-center mt-3 mb-3">
+      <li class="nav-item">
+        <a class="nav-link active" >ALL</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Waiting Accept</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Paid</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">Cancelled</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row  justify-content-center mb-2">
+    <form class="d-flex w-25" role="search" >
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+  <div *ngIf="orderViews == []" class="text-center text-danger m-5">
+    <h1 class="text-uppercase">No order found</h1>
+    <p>look like you haven`e made your order yet</p>
+  </div>
+  <div *ngFor="let orderView of orderViews" class="row mt-3 justify-content-center">
+    <div class="order-card p-0 mb-3 mt-3 shadow-lg" [ngClass]="getStatusClass(orderView.status!)" >
+      <div class="row m-0">
+        <div class="col-md-6 p-0 bg text-start">
+          <div class="row m-0">
+            <div class="col-md-12 p-0">
+              ID: {{orderView.id}}
+            </div>
+            <div class="col-md-12 p-0">
+              {{orderView.payer}}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 p-0 bg text-end">
+          <div class="row m-0">
+            <div class="col-md-12 p-0">
+              <span class="order-status">{{orderView.status}}</span>
+            </div>
+            <div class="col-md-12 p-0">
+              $ {{getTotalPrice(orderView)}}
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-12 pt-2 pb-0 pe-0 ps-0 m-0" style="border-top: 2px dotted #ac2020">
+          <div class="row m-0 p-0">
+            <div class="col-md-6 p-0 text-start">
+              <p class="order-date">{{orderView.createDate | date:'medium'}}</p>
+              <p class="order-address">{{orderView.address}}</p>
+            </div>
+
+            <div class="col-md-6 p-0">
+              <ul class="nav justify-content-end ">
+                <li><a (click)="toggleCollapse(orderView.id!)">Show detail</a></li>
+                <li style="border-left: 2px dotted #ac2020; width: 3px; padding: 0"></li>
+                <li><a href="">Reorder</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div [ngClass]="(orderView.id == currentOrderId && collapsed) ? '':'collapse'" id="collapseExample">
+        <div *ngFor="let orderDetailView of orderView.orderDetailView" class="card card-body mt-3">
+          <div class="row g-0">
+            <div class="col-md-2 p-0">
+              <img [src]="'/assets/images/product/' + orderDetailView.productImageUrl" height="90px" class=" rounded-start" alt="...">
+            </div>
+            <div class="col-md-10 p-0 text-start">
+              <div class="card-body p-0">
+                <h5 class="card-title">{{orderDetailView.productName}}</h5>
+                <p class="card-text m-0">x{{orderDetailView.quantity}} <span class="float-end text-danger">$ {{orderDetailView.price}}</span></p>
+                <p class="card-text p-0"><small class="text-muted">Category: {{orderDetailView.subCategoryName}}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

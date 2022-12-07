@@ -22,7 +22,7 @@ public class ProductMapperImpl implements ProductMapper {
     @Override
     public Product toEntity(ProductDTO dto) {
         Product product = modelMapper.map(dto, Product.class);
-        Status status = new Status(dto.getStatusId(), null);
+        Status status = new Status(dto.getStatus(), null);
         product.setStatus(status);
         SubCategory subCategory = new SubCategory();
         subCategory.setId(dto.getSubCateId());
@@ -33,7 +33,7 @@ public class ProductMapperImpl implements ProductMapper {
     @Override
     public ProductDTO toDto(Product entity) {
         ProductDTO productDTO = modelMapper.map(entity, ProductDTO.class);
-        productDTO.setStatusId(entity.getName());
+        productDTO.setStatus(entity.getStatus().getName());
         productDTO.setSubCateId(entity.getSubCategory().getId());
         return productDTO;
     }

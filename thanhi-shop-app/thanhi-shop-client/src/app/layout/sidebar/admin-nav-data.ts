@@ -18,5 +18,11 @@ export const AdminNavbarData = [
     label: 'User management',
     roles: ['ADMIN']
   },
+  {
+    routeLink: 'order-management',
+    icon: 'fas fa-file-invoice-dollar',
+    label: 'Order management',
+    roles: ['ADMIN', 'STAFF']
+  },
 
 ];

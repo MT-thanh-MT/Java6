@@ -58,6 +58,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/test/*").permitAll()
+                .antMatchers("/api/account/sing-up").permitAll()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/api/product","/api/product/*").permitAll()
                 .antMatchers("/api/category","/api/category/*").permitAll()

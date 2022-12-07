@@ -1,0 +1,73 @@
+<div class="row m-0">
+  <h4 class="mt-2 text-danger">Order manager</h4>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-flex">
+          <input #search (keyup)="searchByNameOrId(search.value)" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+        </div>
+      </div>
+      <div class="form-floating col-md-4">
+        <select (change)="getOrderByStatus(status.value)" #status  class="form-select float-end" id="subCateId" aria-label="subCateId">
+          <option value="ALL">ALL</option>
+          <option value="WAITING ACCEPT" selected>WAITING ACCEPT</option>
+          <option value="PAID">PAID</option>
+          <option value="CANCELLED">CANCELLED</option>
+        </select>
+        <label for="subCateId">Status</label>
+      </div>
+      <!--<div class="col-md-6">
+        <div class="float-end me-lg-5">
+          <button  class="btn btn-danger"><i class="fas fa-plus-square"></i> Create
+            New
+          </button>
+        </div>
+      </div>-->
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="col-md-12 me-lg-5">
+    <table class="table table-bordered border-danger">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th>Purchaser</th>
+        <th>Order Date</th>
+        <th>Address</th>
+        <th>Status</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody class="align-middle">
+      <tr *ngFor="let order of orders | slice: (page-1) * pageSize : page * pageSize; let i=index">
+        <td>{{order.id}}</td>
+        <td>{{order.createBy}}</td>
+        <td>{{order.createDate | date: 'medium'}}</td>
+        <td>{{order.address}}</td>
+        <td [class]="getClassByStatus(order.status!.name!)">{{order.status?.name}}</td>
+        <td style="width: 7rem">
+          <div *ngIf="order.status!.name! == 'WAITING ACCEPT'" class="d-flex" style="max-width: 7rem">
+            <button class="btn btn-success me-3"
+                    (click)="accept(order)"
+                    ngbTooltip="Accept"><i class="fas fa-check-circle"></i></button>
+            <button class="btn btn-danger"
+                    (click)="cancel(order)"
+                    ngbTooltip="Cancel"><i class="fas fa-calendar-times"></i></button>
+          </div>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+    <ngb-pagination
+      [collectionSize]="orders.length"
+      [(page)]="page"
+      [pageSize]="pageSize"
+    ></ngb-pagination>
+  </div>
+</div>
+
+

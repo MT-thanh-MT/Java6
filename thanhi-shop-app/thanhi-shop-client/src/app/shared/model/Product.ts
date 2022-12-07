@@ -6,8 +6,8 @@ export class Product extends BaseEntity{
   public name?: string;
   public imageUrl?: string;
   public sellPrice?: number = 0;
-  public originPrice?: number;
-  public statusId?: number;
+  public originPrice?: number = 0;
+  public statusId?: string;
   public subCateId?: number;
   public hot?: Date;
   public quantity?: number=0;
@@ -19,7 +19,7 @@ export class Product extends BaseEntity{
                imageUrl?: string,
                sellPrice?: number,
                originPrice?: number,
-               statusId?: number,
+               statusId?: string,
                subCateId?: number,
                hot?: Date,
                quantity?: number,

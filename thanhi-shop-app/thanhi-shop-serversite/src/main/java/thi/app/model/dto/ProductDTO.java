@@ -1,5 +1,6 @@
 package thi.app.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import thi.app.model.entity.OrderDetail;
 
@@ -33,7 +34,8 @@ public class ProductDTO extends AbstractDTOEntity implements Serializable {
     @Min(1)
     private BigDecimal originPrice;
 
-    private String statusId;
+    @JsonProperty("statusId")
+    private String status;
 
     private Long subCateId;
 
