@@ -1,0 +1,260 @@
+<div class="row m-0">
+  <h4 class="mt-2 text-danger">Product manager</h4>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-flex">
+          <input #search (keyup)="searchByNameOrId(search.value)" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button (click)="searchByNameOrId(search.value)" class="btn btn-outline-success" type="submit">Search</button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="float-end me-lg-5">
+          <button (click)="openModal(content, null)" class="btn btn-danger"><i class="fas fa-plus-square"></i> Create
+            New
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="col-md-12 me-lg-5">
+    <table class="table table-bordered border-danger">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Create by</th>
+        <th scope="col">Name</th>
+        <th scope="col">Image</th>
+        <th scope="col">Sell price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Status</th>
+        <th scope="col">Sold</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody class="align-middle">
+      <tr *ngFor="let product of products | slice: (page-1) * pageSize : page * pageSize; let i=index">
+        <td>{{product.id}}</td>
+        <td>{{product.createBy}}</td>
+        <td>{{product.name}}</td>
+        <td><img [src]="'./assets/images/product/' + product.imageUrl" width="55rem"></td>
+        <td>{{product.sellPrice}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.statusId}}</td>
+        <td>{{product.sold}}</td>
+        <td style="width: 7rem">
+          <div class="d-flex" style="max-width: 7rem">
+            <button class="btn btn-warning me-3"
+                    (click)="openModal(content, product)"
+                    ngbTooltip="Update"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-danger"
+                    ngbTooltip="Delete"
+                    (click)="delete(product.id ?? 0)"><i class="fas fa-calendar-times"></i></button>
+          </div>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+    <ngb-pagination
+      [collectionSize]="products.length"
+      [(page)]="page"
+      [pageSize]="pageSize"
+    ></ngb-pagination>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row">
+
+        <div class="col-md-7">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12 mt-1">
+                  <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" class="form-control" formControlName="id" readonly>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-1">
+                  <div class="form-group text-center">
+                    <img [src]="'assets/images/product/' + imageUrl" alt="" width="220rem" class="img-thumbnail m-lg-1">
+                    <input
+                      (change)="onFileChange($event)"
+                      type="file"
+                      formControlName="file"
+                      class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f['file'].errors }"
+                    />
+                    <input type="hidden" name="imageUrl" formControlName="imageUrl"/>
+                    <div *ngIf="submitted && f['file'].errors" class="invalid-feedback">
+                      <div *ngIf="f['file'].errors['required']">Image is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12 mt-1">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input
+                      type="text"
+                      formControlName="name"
+                      class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+                    />
+                    <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                      <div *ngIf="f['name'].errors['required']">Name is required</div>
+                      <div *ngIf="f['name'].errors['maxlength']">
+                        Name must not exceed 250 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 mt-1">
+                  <div class="form-group">
+                    <label>sellPrice</label>
+                    <input
+                      type="number"
+                      formControlName="sellPrice"
+                      class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f['sellPrice'].errors }"
+                    />
+                    <div *ngIf="submitted && f['sellPrice'].errors" class="invalid-feedback">
+                      <div *ngIf="f['sellPrice'].errors['required']">sellPrice is required</div>
+                      <div *ngIf="f['sellPrice'].errors['min']">
+                        sellPrice must be greater than 0
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 mt-1">
+                  <div class="form-group">
+                    <label>originPrice</label>
+                    <input
+                      type="number"
+                      formControlName="originPrice"
+                      class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f['originPrice'].errors }"
+                    />
+                    <div *ngIf="submitted && f['originPrice'].errors" class="invalid-feedback">
+                      <div *ngIf="f['originPrice'].errors['required']">originPrice is required</div>
+                      <div *ngIf="f['originPrice'].errors['min']">
+                        originPrice must be greater than 0
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 mt-1">
+                  <div class="form-group">
+                    <label>quantity</label>
+                    <input
+                      type="number"
+                      formControlName="quantity"
+                      class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f['quantity'].errors }"
+                    />
+                    <div *ngIf="submitted && f['quantity'].errors" class="invalid-feedback">
+                      <div *ngIf="f['quantity'].errors['required']">quantity is required</div>
+                      <div *ngIf="f['quantity'].errors['min']">
+                        quantity must be greater than 0
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 mt-1">
+                  <div class="form-group">
+                    <label>sold</label>
+                    <input
+                      type="number"
+                      formControlName="sold"
+                      class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f['sold'].errors }"
+                    />
+                    <div *ngIf="submitted && f['sold'].errors" class="invalid-feedback">
+                      <div *ngIf="f['sold'].errors['required']">sold is required</div>
+                      <div *ngIf="f['sold'].errors['min']">
+                        sold must be greater than 0
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="row">
+
+            <div class="col-md-6 mt-1">
+              <div class="form-floating">
+                <select formControlName="subCateId" class="form-select" id="subCateId" aria-label="subCateId">
+                  <option value="{{1}}" selected>Laptop</option>
+                  <option value="{{2}}">Desktop</option>
+                  <option value="{{3}}">Smart Phone</option>
+                  <option value="{{4}}">Telephone</option>
+                  <option value="{{5}}">Smart Watch</option>
+                  <option value="{{6}}">Mini Tablet</option>
+                </select>
+                <label for="subCateId">Sub Category</label>
+              </div>
+            </div>
+
+            <div class="col-md-6 mt-1">
+              <div class="form-floating">
+                <select formControlName="statusId" class="form-select" id="statusId" aria-label="statusId">
+                  <option value="OUT OF STOCK">OUT OF STOCK</option>
+                  <option value="IN STOCK" selected>IN STOCK</option>
+                  <option value="DELETED">DELETED</option>
+                </select>
+                <label for="statusId">Status</label>
+              </div>
+            </div>
+
+            <div class="col-md-12 mt-1">
+              <div class="form-group">
+                <label>Description</label>
+                <textarea formControlName="description"
+                          class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"
+                          cols="30" rows="10"></textarea>
+                <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+                  <div *ngIf="f['description'].errors['required']">Name is required</div>
+                  <div *ngIf="f['description'].errors['maxlength']">
+                    Description must not exceed 250 characters
+                  </div>
+                  <div *ngIf="f['description'].errors['minlength']">
+                    Description must be greater than 1 characters
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="onSubmit()">Save</button>
+  </div>
+</ng-template>

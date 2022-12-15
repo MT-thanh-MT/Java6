@@ -1,0 +1,78 @@
+<div class="container mt-5 mb-5 w-50">
+  <div class="row m-0">
+    <div class="col-md-12 border-bottom pb-3">
+      <h1>MY PROFILE</h1>
+      <span class="blockquote-footer">Information management</span>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row">
+
+        <div class="col-md-6 mt-1">
+          <div class="form-group">
+            <label>Username</label>
+            <div class="form-control">ThanhMX1</div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mt-1">
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="text"
+              formControlName="email"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+            />
+            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+              <div *ngIf="f['email'].errors['required']">Email is required</div>
+              <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mt-1">
+          <div class="form-group">
+            <label>First Name</label>
+            <input
+              type="text"
+              formControlName="firstName"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }"
+            />
+            <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+              <div *ngIf="f['firstName'].errors['required']">First Name is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mt-1">
+          <div class="form-group">
+            <label>Last Name</label>
+            <input
+              type="text"
+              formControlName="lastName"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }"
+            />
+            <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+              <div *ngIf="f['lastName'].errors['required']">Last Name is required</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="form-group mt-3">
+        <button type="submit" class="btn btn-outline-danger ">Update</button>
+        <button
+          type="button"
+          (click)="onReset()"
+          class="btn btn-outline-info float-right ms-lg-5"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

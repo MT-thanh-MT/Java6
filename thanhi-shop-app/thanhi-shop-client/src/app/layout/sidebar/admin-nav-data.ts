@@ -24,5 +24,11 @@ export const AdminNavbarData = [
     label: 'Order management',
     roles: ['ADMIN', 'STAFF']
   },
+  {
+    routeLink: '/home',
+    icon: 'fas fa-store',
+    label: 'Back to shop',
+    roles: ['ADMIN', 'STAFF']
+  },
 
 ];

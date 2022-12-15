@@ -1,0 +1,37 @@
+p {
+  font-family: Lato;
+}
+
+#root {
+  padding: 30px;
+}
+
+.register-form {
+  max-width: 65vw;
+  margin: auto;
+}
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins&display=swap');
+
+.thi_login {
+  font-family: 'Poppins', sans-serif;
+}
+.thi_form {
+  width: 50rem;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.h2 {
+  font-family: 'Kaushan Script', cursive;
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: rgba(255, 0, 0, 0.62);
+  font-style: italic
+}
+
+.h2:hover{
+  cursor: pointer;
+}
+
+.h4 {
+  font-family: 'Poppins', sans-serif
+}

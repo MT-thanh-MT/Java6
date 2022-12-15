@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="./assets/images/logo.png" alt="" width="110px">
+    </a>
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            (click)="collapsed = !this.collapsed"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div [ngClass]="{ collapse: collapsed, 'navbar-collapse': true }"
+         id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 my_nav">
+        <li class="nav-item">
+          <a class="nav-link"  routerLinkActive="active" routerLink="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  *ngIf="userAuthService.isLoggedIn()" routerLinkActive="active" routerLink="/orders">My Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  routerLinkActive="active" routerLink="/about">About</a>
+        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" routerLink="product-list"-->
+<!--             routerLinkActive="active">Product</a>-->
+<!--        </li>-->
+        <li class="nav-item" *ngIf="userService.roleMath(['ADMIN', 'STAFF'])">
+          <a class="nav-link" routerLink="/admin/dashboard">Admin Dashboard</a>
+        </li>
+
+
+      </ul>
+      <button *ngIf="!isLoggedIn()" class="btn btn-primary fw-bold" type="button" routerLink="/login">Login</button>
+      <div ngbDropdown class="d-inline-block m-0">
+        <button *ngIf="isLoggedIn()" type="button" class="btn btn-outline-danger" id="dropdownBasic1" ngbDropdownToggle>
+          <i class="fas fa-user me-2"></i>Hi, {{userAuthService.getUserDetail().firstName}}
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button routerLink="/profile" ngbDropdownItem>Profile</button>
+          <button routerLink="/change-password" ngbDropdownItem>Change Password</button>
+          <button (click)="logout()" ngbDropdownItem>Logout</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<!--<style>-->
+<!--  .mat-elevation-z8{opacity: 75%}-->
+<!--  .mat-elevation-z8:hover{ opacity: 100%}-->
+<!--</style>-->
+<!--<div class="sticky-sm-top ">-->
+<!--<mat-toolbar color="warn" class="mat-elevation-z8">-->
+<!--  <img src="./assets/images/logo.png" alt="" width="110px" >-->
+
+<!--  <div class="spacer opacity-0"></div>-->
+
+<!--  <a mat-button routerLink="" (click)="setActive('home')"-->
+<!--     [ngClass]="getActive('home')?'active':''"-->
+<!--     >Home</a>-->
+<!--  <a mat-button routerLink="product-list" (click)="setActive('product-list')"-->
+<!--     [ngClass]="getActive('product-list')?'active':''">Product</a>-->
+<!--  <a *ngIf="userService.roleMath(['ADMIN', 'STAFF'])" mat-button routerLink="/admin/dashboard">Admin Dashboard</a>-->
+<!--  <a *ngIf="!isLoggedIn()" mat-raised-button color="accent" routerLink="/login">Sign In</a>-->
+<!--  <a *ngIf="isLoggedIn()" mat-raised-button color="accent" (click)="logout()" routerLink="/login">Logout</a>-->
+<!--</mat-toolbar>-->
+<!--</div>-->

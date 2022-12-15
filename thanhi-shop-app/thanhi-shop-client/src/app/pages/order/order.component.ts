@@ -8,13 +8,15 @@ import {ToastService} from "../../shared/toast/toast-service";
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css']
+  styleUrls: ['./order.component.css'],
 })
 export class OrderComponent implements OnInit {
 
   collapsed = false;
   orderViews: OrderView[] = [];
   currentOrderId: number = 0;
+  showDetaiTitle: string = 'Show detail';
+
 
   constructor(private userAuthservice: UserAuthService,
               private orderService: OrderService,
@@ -64,5 +66,18 @@ export class OrderComponent implements OnInit {
     else if (status == 'CANCELLED') {
       return 'order-cancelled';
     } else return '';
+  }
+
+  openDetail(detail: HTMLDivElement) {
+    let className: string = detail.className;
+
+    if (className) {
+      detail.setAttribute('class', '')
+      this.showDetaiTitle = 'close';
+    } else {
+      detail.setAttribute('class', 'collapse')
+      this.showDetaiTitle = 'Show detail';
+    }
+
   }
 }

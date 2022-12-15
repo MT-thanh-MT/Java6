@@ -1,0 +1,48 @@
+<div class="text-start">
+  <p routerLink="/" class=" fw-bold btn btn-outline-danger"><i class="fas fa-arrow-alt-circle-left"></i> Back to home</p>
+</div>
+<div class="container-fluid p-5 d-flex justify-content-center align-items-center thi_login">
+  <div class="border border-danger rounded p-5 mt-5  thi_form">
+    <div class="h2 text-center" routerLink="/">Thanhi</div>
+    <div class="h4 text-muted text-center pt-2">Enter your login details</div>
+    <form class="d-flex" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+      <div class="col">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text"
+                 ngModel
+                 name="username"
+                 id="username"
+                 class="form-control"
+                 required
+                 #username="ngModel"
+          >
+          <div *ngIf="username.invalid && (username.dirty || username.touched)"
+               class="text-danger">
+            <div *ngIf="username.errors?.['required']">
+              username is required.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password"
+                 ngModel
+                 name="password"
+                 id="password"
+                 class="form-control"
+                 required
+                 #password="ngModel">
+          <div *ngIf="password.invalid && (password.dirty || password.touched)"
+               class="text-danger">
+            <div *ngIf="password.errors?.['required']">
+              password is required.
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-outline-danger form-control rounded-5 fw-bold">Login</button>
+        <a routerLink="/register" class="btn btn-link">Don't have an account?</a>
+      </div>
+    </form>
+  </div>
+</div>

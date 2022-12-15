@@ -1,0 +1,99 @@
+<!--<div class="container-fluid bg-danger p-4 text-center mb-3 ml-0">-->
+<!--  <ngb-carousel>-->
+<!--    <ng-template ngbSlide *ngFor="let p of products">-->
+<!--      <div class="">-->
+<!--        <img [src]="'./assets/images/product/' + p.imageUrl" alt="Random slide" />-->
+<!--      </div>-->
+<!--      <div class="text-light mb-5">-->
+<!--        <h3 class="text-light">{{p.name}}</h3>-->
+<!--        <p class="text-light">${{p.sellPrice}}</p>-->
+<!--      </div>-->
+<!--    </ng-template>-->
+<!--  </ngb-carousel>-->
+<!--</div>-->
+
+<div class="product-big-title-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="product-bit-title text-center">
+          <h2 ngModel [innerText]="categoryService.currentCategoryName"></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row m-0">
+  <div class="col-lg-1 text-center">
+    <h1></h1>
+  </div>
+  <div class="col-lg-10">
+    <div class="row">
+      <div class="col-md-12 mt-3 mb-3">
+        <div class="row">
+          <div class="col-md-6">
+            <form class="d-flex" role="search">
+              <input class="form-control form-control-lg me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+              <option selected>Price</option>
+              <option value="1"><100$</option>
+              <option value="2">100$ -> 500$</option>
+              <option value="3">>500$</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div *ngFor="let product of products | slice: (page-1) * pageSize : page * pageSize; let i=index" class="col-md-4 mb-3 ">
+        <div class="card mt-3 shadow-lg my_card_product">
+          <div class=" align-items-center p-2 text-center">
+            <img [src]="'./assets/images/product/' + product.imageUrl" alt="Product Image" class="rounded" width="160" height="203">
+            <h5 class="mt-2 cursor product-name" [routerLink]="['/product-detail', product.id]">{{product.name}}</h5>
+            <div class="mt-3 info">
+              <span class=" text-capitalize text1">{{product.statusId | lowercase}}</span><span class="text1 ms-lg-5">Sold: {{product.sold}}</span>
+            </div>
+            <div class="cost mt-3 text-dark">
+              <span>$ {{product.sellPrice}}</span><span *ngIf="equalsPrice(product.originPrice!, product.sellPrice!)" class="text-decoration-line-through ms-lg-5 text-secondary"> $ {{product.originPrice}}</span>
+              <div class="star mt-3 align-items-center">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+            </div>
+            <p *ngIf="product.quantity == 0" class="text-danger mt-2">Out of stock!</p>
+          </div>
+
+          <div (click)="addToCart(product)" class="p-3 product text-center text-white mt-3 cursor">
+            <span class="text-uppercase ">Add to cart</span>
+          </div>
+
+        </div>
+        <!--<div class="card text-center align-items-center p-1 shadow-lg my_card_product" style=" height: 25rem">
+          <img [src]="'./assets/images/product/' + product.imageUrl" alt="Product Image" class="img-responsive" style=" max-height: 14rem">
+          <div class="card-body">
+            <p class="card-title fw-bold" style="font-size: .9rem">{{product.name}}</p>
+            <p class="card-text text-danger">${{product.sellPrice}}</p>
+            <p *ngIf="product.quantity == 0" class="text-danger">Out of stock!</p>
+            <button (click)="addToCart(product)" class="btn btn-primary" [disabled]="product.quantity == 0" >Add to cart</button>
+          </div>
+        </div>-->
+      </div>
+
+      <ngb-pagination
+        [collectionSize]="products.length"
+        [(page)]="page"
+        [pageSize]="pageSize"
+      ></ngb-pagination>
+
+    </div>
+  </div>
+  <div class="col-lg-1 text-center">
+    <h1></h1>
+  </div>
+</div>

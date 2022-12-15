@@ -36,8 +36,12 @@
     <h1 class="text-uppercase">No order found</h1>
     <p>look like you haven`e made your order yet</p>
   </div>
-  <div *ngFor="let orderView of orderViews" class="row mt-3 justify-content-center">
-    <div class="order-card p-0 mb-3 mt-3 shadow-lg" [ngClass]="getStatusClass(orderView.status!)" >
+
+  <app-order-view *ngFor="let orderView of orderViews" [orderView]="orderView"></app-order-view>
+
+  <!--<div  class="row mt-3 justify-content-center">
+
+    &lt;!&ndash;<div class="order-card p-0 mb-3 mt-3 shadow-lg" [ngClass]="getStatusClass(orderView.status!)" >
       <div class="row m-0">
         <div class="col-md-6 p-0 bg text-start">
           <div class="row m-0">
@@ -69,16 +73,16 @@
 
             <div class="col-md-6 p-0">
               <ul class="nav justify-content-end ">
-                <li><a (click)="toggleCollapse(orderView.id!)">Show detail</a></li>
+                <li><a (click)="openDetail(detail)">{{showDetaiTitle}}</a></li>
                 <li style="border-left: 2px dotted #ac2020; width: 3px; padding: 0"></li>
-                <li><a href="">Reorder</a></li>
+                <li><a href="#">Reorder</a></li>
               </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <div [ngClass]="(orderView.id == currentOrderId && collapsed) ? '':'collapse'" id="collapseExample">
+      <div #detail [ngClass]="(orderView.id == currentOrderId && collapsed) ? '':'collapse'" id="collapseExample">
         <div *ngFor="let orderDetailView of orderView.orderDetailView" class="card card-body mt-3">
           <div class="row g-0">
             <div class="col-md-2 p-0">
@@ -94,6 +98,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </div>&ndash;&gt;
+  </div>-->
 </div>

@@ -1,0 +1,22 @@
+<button class=" my_category_button"
+        nz-popover
+        nzPopoverTitle="Category"
+        [nzPopoverContent]="contentTemplate"
+        nzPopoverPlacement="right">
+  <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 15 16">
+    <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+  </svg>
+</button>
+
+<ng-template #contentTemplate style="border: 1px solid red">
+  <div class="my_category">
+    <ul class="navbar-nav">
+      <li class="nav-item" >
+        <a class="nav-link" (click)="setCurrentCategory('All category')" routerLinkActive="active" routerLink="/product-list" >ALL</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" *ngFor="let category of categories">
+        <a class="nav-link" (click)="setCurrentCategory(category.name??'Category')" routerLink="/product-list" [queryParams]="{'cid': category.id}"><i [class]="category.imageUrl??''" style="width: 1.5rem;"></i> {{category.name}}</a>
+      </li>
+    </ul>
+  </div>
+</ng-template>

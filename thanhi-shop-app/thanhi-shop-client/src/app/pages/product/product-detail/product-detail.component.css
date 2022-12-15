@@ -1,0 +1,14 @@
+.quantity {
+  float: left;
+  margin-right: 15px;
+}
+.quantity input[type="number"] {
+  border: 1px solid #fb3531;
+  padding: 5px;
+  width: 50px;
+}
+
+.product-detail span{
+  font-size: 28px;
+  padding: 15px;
+}

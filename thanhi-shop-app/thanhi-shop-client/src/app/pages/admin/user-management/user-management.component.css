@@ -1,0 +1,15 @@
+th,td{
+  font-size: .9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+nz-select {
+  width: 100%;
+}
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 1060 !important;
+}

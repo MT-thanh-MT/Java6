@@ -1,0 +1,31 @@
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
+  <div class="logo-container">
+    <button class="logo text-white" (click)="toggleCollapse()">T</button>
+    <div class="logo-text" @fadeInOut *ngIf="collapsed"><a ngbTooltip="Go to shop" placement="end" [routerLink]="'/'">THANHI</a>
+    </div>
+    <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
+      <i class="fal fa-times close-icon"></i>
+    </button>
+  </div>
+  <ul class="sidenav-nav">
+    <li [ngbTooltip]="data.label" class="sidenav-nav-item" *ngFor="let data of adminNavData">
+      <a *ngIf="userService.roleMath(data.roles)" class="sidenav-nav-link" [routerLink]="[data.routeLink]"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact: true}"
+      >
+        <i class="sidenav-link-icon" [class]="data.icon"></i>
+        <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                    {{data.label}}
+                </span>
+      </a>
+    </li>
+    <div class="text-danger position-fixed bottom-0 mb-1">
+      <a ngbTooltip="Logout" routerLink="/login" class="text-end btn btn-outline-danger"><i class="fas fa-sign-out-alt"></i> <span
+        class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                    Logout
+                </span></a>
+
+    </div>
+  </ul>
+
+</div>
