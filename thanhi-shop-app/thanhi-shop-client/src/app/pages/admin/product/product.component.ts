@@ -170,8 +170,9 @@ export class ProductComponent implements OnInit {
 
 
   searchByNameOrId(value: string) {
-    this.productManagerService.getProductByNameOrId(value).subscribe(
+    this.productManagerService.searchProduct(value).subscribe(
       (res) => {
+        console.log(res)
         this.products = res;
       },
       (error) => {

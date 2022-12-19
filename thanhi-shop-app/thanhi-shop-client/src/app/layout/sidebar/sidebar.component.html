@@ -20,7 +20,7 @@
       </a>
     </li>
     <div class="text-danger position-fixed bottom-0 mb-1">
-      <a ngbTooltip="Logout" routerLink="/login" class="text-end btn btn-outline-danger"><i class="fas fa-sign-out-alt"></i> <span
+      <a ngbTooltip="Logout" (click)="logout()" class="text-end btn btn-outline-danger"><i class="fas fa-sign-out-alt"></i> <span
         class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                     Logout
                 </span></a>

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {RequestHeaderConstants} from "./requestHeader.constants";
 import {Observable} from "rxjs";
 import {Order, OrderView} from "../../shared/model/Order";
+import {SearchRequestDTO} from "../../shared/model/SearchRequestDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,13 @@ export class OrderManagerService {
 
   public getOrderByStatus(status: string): Observable<Order[]> {
     return this.httpClient.get<Order[]>(this.PATH_OF_API + '?status=' + status, {headers: this.requestHeaderConstants.Authorization()});
+  };
+
+  public search(value: string): Observable<Order[]> {
+    let searchRequestDTO: SearchRequestDTO = new SearchRequestDTO();
+    searchRequestDTO.text = value;
+    searchRequestDTO.fields = ["address", "createBy"];
+    return this.httpClient.post<Order[]>(this.PATH_OF_API + '/search' , searchRequestDTO, {headers: this.requestHeaderConstants.Authorization()});
   };
 
   update(order: Order): Observable<Order> {

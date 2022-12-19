@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../../core/services/user.service";
 import {ToastService} from "../../../shared/toast/toast-service";
 import Validation from "../../../shared/validations/Validation";
+import {UserDetail} from "../../../shared/model/userDetail";
 
 @Component({
   selector: 'app-profile',
@@ -28,11 +29,12 @@ export class ProfileComponent implements OnInit {
               private toast: ToastService) { }
 
   ngOnInit(): void {
+    let user: UserDetail = this.userService.getLoggedInUser();
     this.form = this.formBuilder.group(
       {
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
+        firstName: [user.firstName, Validators.required],
+        lastName: [user.lastName, Validators.required],
+        email: [user.email, [Validators.required, Validators.email]],
       }
     );
   }

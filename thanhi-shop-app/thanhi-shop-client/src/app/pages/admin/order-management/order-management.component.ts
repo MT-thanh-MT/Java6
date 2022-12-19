@@ -4,6 +4,7 @@ import {Order} from "../../../shared/model/Order";
 import {OrderManagerService} from "../../../core/services/order-manager.service";
 import {log} from "ng-zorro-antd/core/logger";
 import {ToastService} from "../../../shared/toast/toast-service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-order-management',
@@ -24,6 +25,7 @@ export class OrderManagementComponent implements OnInit {
 
   constructor(private orderManagerService: OrderManagerService,
               public toast: ToastService,
+              private router: Router,
               ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,17 @@ export class OrderManagementComponent implements OnInit {
   }
 
   searchByNameOrId(value: string) {
-
+    this.orderManagerService.search(value).subscribe(
+      (res) => {
+        this.orders = res;
+      },
+      (error) => {
+        console.log(error);
+        if (error.status == 401) {
+          this.router.navigate(['/access-denied']);
+        }
+      }
+    )
   }
 
   cancel(order: Order) {
@@ -58,6 +70,7 @@ export class OrderManagementComponent implements OnInit {
             o = res;
           }
         });
+        this.load("WAITING ACCEPT");
         this.toast.show('Update status success', { classname: 'bg-success text-light', delay: 3000 })
       },
       (error) => console.log(error)

@@ -30,7 +30,8 @@ export class ProductListComponent implements OnInit {
               private productService: ProductService,
               config: NgbCarouselConfig,
               public cartService: CartService,
-              public categoryService: CategoryService) {
+              public categoryService: CategoryService,
+              private router: Router) {
     config.showNavigationArrows = true;
     config.showNavigationIndicators = true;
   }
@@ -58,5 +59,24 @@ export class ProductListComponent implements OnInit {
 
   equalsPrice(originPrice: number, sellPrice: number): boolean {
     return originPrice > sellPrice;
+  }
+
+  searchProduct(value: string) {
+    if(!value) {
+      this.router.navigate(['product-list']);
+      this.categoryService.currentCategoryName = "All category";
+      this.load(0);
+    } else {
+      this.productService.searchProduct(value).subscribe(
+        (res) => {
+          this.products = res;
+          this.categoryService.currentCategoryName = `All products related to keyword: "${value}"`;
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+    }
+
   }
 }

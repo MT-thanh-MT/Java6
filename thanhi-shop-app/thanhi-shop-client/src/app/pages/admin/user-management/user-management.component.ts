@@ -81,7 +81,17 @@ export class UserManagementComponent implements OnInit {
   }
 
   searchByUser(value: string) {
-
+    this.userService.search(value).subscribe(
+      (res) => {
+        this.users = res;
+      },
+      (error) => {
+        console.log(error);
+        if (error.status == 401) {
+          this.router.navigate(['/access-denied']);
+        }
+      }
+    );
   }
 
   openModal(content: TemplateRef<any>, user: UserDetail | null) {

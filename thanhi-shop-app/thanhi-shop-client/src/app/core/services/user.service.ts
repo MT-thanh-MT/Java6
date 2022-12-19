@@ -5,6 +5,8 @@ import { UserAuthService } from './user-auth.service';
 import {RequestHeaderConstants} from "./requestHeader.constants";
 import {Observable} from "rxjs";
 import {UserDetail} from "../../shared/model/userDetail";
+import {SearchRequestDTO} from "../../shared/model/SearchRequestDTO";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +16,16 @@ export class UserService {
 
   constructor(private httpClient: HttpClient,
               public userAuthService: UserAuthService,
+              private router: Router,
               private requestHeaderConstants: RequestHeaderConstants) { }
 
   public login(loginData: NgForm): Observable<UserDetail> {
     return this.httpClient.post<UserDetail>(this.PATH_OF_API + "/authenticate", loginData.value, { headers: this.requestHeaderConstants.NO_AUTH });
+  }
+
+  public logout(){
+    this.userAuthService.clearAuth();
+    this.router.navigate(['/login']);
   }
 
   public roleMath(allowedRoles: string[]): boolean {
@@ -41,6 +49,13 @@ export class UserService {
 
   public getAll(): Observable<UserDetail[]> {
     return this.httpClient.get<UserDetail[]>(this.PATH_OF_API + "/admin/account", { headers: this.requestHeaderConstants.Authorization() });
+  }
+
+  public search(value: string): Observable<UserDetail[]> {
+    let searchRequestDTO: SearchRequestDTO = new SearchRequestDTO();
+    searchRequestDTO.text = value;
+    searchRequestDTO.fields = ["username", "firstName", "lastName", "email"];
+    return this.httpClient.post<UserDetail[]>(this.PATH_OF_API + "/admin/account/search", searchRequestDTO, { headers: this.requestHeaderConstants.Authorization() });
   }
 
   updateAuthority(user: UserDetail): Observable<UserDetail> {
@@ -70,5 +85,9 @@ export class UserService {
       user.createDate = new Date();
       return this.create(user);
     }
+  }
+
+  public getLoggedInUser(): UserDetail {
+    return this.userAuthService.getUserDetail();
   }
 }

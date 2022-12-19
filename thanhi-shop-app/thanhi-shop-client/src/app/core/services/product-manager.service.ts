@@ -4,6 +4,7 @@ import {RequestHeaderConstants} from "./requestHeader.constants";
 import {Observable} from "rxjs";
 import {Product} from "../../shared/model/Product";
 import {UserAuthService} from "./user-auth.service";
+import {SearchRequestDTO} from "../../shared/model/SearchRequestDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +52,12 @@ export class ProductManagerService {
 
   getProductByNameOrId(value: string): Observable<Product[]> {
     return this.httpClient.get<Product[]>(this.PATH_OF_API + '/' + value, {headers: this.requestHeaderConstants.Authorization()});
+  }
+
+  searchProduct(value: string): Observable<Product[]> {
+    let searchRequestDTO: SearchRequestDTO = new SearchRequestDTO();
+    searchRequestDTO.text = value;
+    searchRequestDTO.fields = ["name", "createBy"];
+    return this.httpClient.post<Product[]>(this.PATH_OF_API + '/search', searchRequestDTO, {headers: this.requestHeaderConstants.Authorization()});
   }
 }
