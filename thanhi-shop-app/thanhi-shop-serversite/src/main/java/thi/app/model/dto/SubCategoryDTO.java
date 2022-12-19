@@ -6,7 +6,7 @@ import thi.app.model.entity.Product;
 import java.io.Serializable;
 import java.util.Set;
 
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Set;
 
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

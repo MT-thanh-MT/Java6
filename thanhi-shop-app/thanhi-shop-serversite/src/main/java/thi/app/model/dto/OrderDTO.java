@@ -7,7 +7,7 @@ import thi.app.model.entity.Status;
 import java.io.Serializable;
 import java.util.Set;
 
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

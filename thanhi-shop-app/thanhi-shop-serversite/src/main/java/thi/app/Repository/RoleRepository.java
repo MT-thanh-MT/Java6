@@ -1,7 +1,8 @@
 package thi.app.Repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import thi.app.model.entity.Role;
 
-public interface RoleRepository extends JpaRepository<Role, String> {
+@Repository
+public interface RoleRepository extends SearchRepository<Role, String> {
 }

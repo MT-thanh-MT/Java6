@@ -1,4 +1,4 @@
-package thi.app.web.rest.admin;
+package thi.app.config.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

@@ -21,4 +21,8 @@ public interface IProductService {
     ProductDTO getProductById(Long aLong);
 
     List<ProductDTO> getBySubCategory(Long aLong);
+
+    List<ProductDTO> searchProduct(String text, List<String> fields, int limit);
+
+    void indexData() throws InterruptedException;
 }

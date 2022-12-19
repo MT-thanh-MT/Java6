@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Service
+//@Service
 public class AccountMapperImpl implements AccountMapper {
 
     @Autowired
@@ -21,10 +21,16 @@ public class AccountMapperImpl implements AccountMapper {
 
     @Override
     public Account toEntity(AccountDTO dto) {
-        Account acc = modelMapper.map(dto, Account.class);
+        Account acc = new Account();
+        acc.setId(dto.getId());
+        acc.setPassword(dto.getPassword());
+        acc.setEmail(dto.getEmail());
+        acc.setActivated(dto.isActivated());
+        acc.setUsername(dto.getUsername());
+//        acc.setRoles();
         if (!dto.getRoles().isEmpty()) {
             Set<Role> roles = dto.getRoles().stream().map(name -> {
-                return Role.builder().name(name).build();
+                return new Role(name);
             }).collect(Collectors.toSet());
             acc.setRoles(roles);
         }

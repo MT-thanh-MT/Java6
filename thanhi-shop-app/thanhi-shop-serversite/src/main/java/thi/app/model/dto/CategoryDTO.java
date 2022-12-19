@@ -1,21 +1,14 @@
 package thi.app.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import thi.app.model.entity.AbstractEntity;
 import thi.app.model.entity.SubCategory;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
 
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

@@ -22,18 +22,7 @@ class ThanhiShopServersiteApplicationTests {
 
     @Test
     void contextLoads() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(Role.builder().name("ADMIN").build());
-        roles.add(Role.builder().name("DIR").build());
-        accountRepository.save(Account.builder()
-                        .username("Vont1")
-                        .password(passwordEncoder.encode("vo@123"))
-                        .email("vontph18566@fpt.edu.vn")
-                        .firstName("Vo")
-                        .lastName("Nguyen Tien")
-                        .activated(true)
-                        .roles(roles)
-                        .build());
+
     }
 
 }

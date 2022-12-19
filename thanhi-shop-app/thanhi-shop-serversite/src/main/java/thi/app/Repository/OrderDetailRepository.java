@@ -1,7 +1,8 @@
 package thi.app.Repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import thi.app.model.entity.OrderDetail;
 
-public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
+@Repository
+public interface OrderDetailRepository extends SearchRepository<OrderDetail, Long> {
 }

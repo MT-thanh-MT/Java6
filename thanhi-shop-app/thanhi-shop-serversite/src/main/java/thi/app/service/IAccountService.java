@@ -16,4 +16,8 @@ public interface IAccountService {
     public AccountDTO update(AccountDTO accountDTO);
 
     public boolean delete(Long id);
+
+    List<Account> searchAccount(String text, List<String> fields, int limit);
+
+    void indexData() throws InterruptedException;
 }

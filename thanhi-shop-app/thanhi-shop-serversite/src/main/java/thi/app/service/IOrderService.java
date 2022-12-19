@@ -16,4 +16,8 @@ public interface IOrderService {
     OrderDTO update(OrderDTO orderDTO);
 
     List<OrderDTO> getOrdersByStatus(String status);
+
+    List<OrderDTO> searchOrder(String text, List<String> fields, int limit);
+
+    void indexData() throws InterruptedException;
 }

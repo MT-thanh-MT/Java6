@@ -1,9 +1,10 @@
-package thi.app.web.rest.admin;
+package thi.app.config.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import thi.app.model.dto.AccountDTO;
+import thi.app.model.dto.SearchRequestDTO;
 import thi.app.model.entity.Account;
 import thi.app.model.mapper.AccountMapper;
 import thi.app.service.IAccountService;
@@ -22,6 +23,23 @@ public class AccountManager {
 
     @Autowired
     AccountMapper accountMapper;
+
+    @PostMapping("search")
+    public ResponseEntity<List<AccountDTO>> searchAccount(@RequestBody SearchRequestDTO searchRequestDTO) {
+        List<AccountDTO> list = accountMapper.toDto(accountService.searchAccount(
+                searchRequestDTO.getText(),
+                searchRequestDTO.getFields(),
+                searchRequestDTO.getLimit()
+        ));
+
+        return ResponseEntity.ok().body(list);
+    }
+
+    @PostMapping("/reindex")
+    public ResponseEntity<Void> reindexAccount() throws InterruptedException {
+        accountService.indexData();
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping
     public ResponseEntity<List<AccountDTO>> getAll() {

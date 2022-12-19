@@ -1,6 +1,4 @@
 package thi.app.model.mapper;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,7 +9,6 @@ import java.util.List;
  * @param <E> - Entity type parameter.
  */
 
-@Service
 public interface EntityMapper <D, E> {
 
     E toEntity(D dto);

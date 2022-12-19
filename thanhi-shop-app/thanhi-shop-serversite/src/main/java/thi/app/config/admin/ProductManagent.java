@@ -1,16 +1,16 @@
-package thi.app.web.rest.admin;
+package thi.app.config.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import thi.app.model.dto.ProductDTO;
+import thi.app.model.dto.SearchRequestDTO;
 import thi.app.service.IProductService;
 import thi.app.web.errors.ProductAlreadyExistsException;
 
 import javax.validation.Valid;
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +21,24 @@ public class ProductManagent {
 
     @Autowired
     IProductService productService;
+
+    @PostMapping("search")
+    public ResponseEntity<List<ProductDTO>> searchProduct(@RequestBody SearchRequestDTO searchRequestDTO) {
+        List<ProductDTO> list = productService.searchProduct(
+                searchRequestDTO.getText(),
+                searchRequestDTO.getFields(),
+                searchRequestDTO.getLimit()
+        );
+        System.out.println(list);
+
+        return ResponseEntity.ok().body(list);
+    }
+
+    @PostMapping("/reindex")
+    public ResponseEntity<Void> reindexProduct() throws InterruptedException {
+        productService.indexData();
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAll() {

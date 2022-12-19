@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import thi.app.model.dto.ProductDTO;
+import thi.app.model.dto.SearchRequestDTO;
 import thi.app.service.IProductService;
 import thi.app.web.errors.ProductNotFoundException;
 
@@ -17,6 +18,18 @@ public class ProductRestController {
 
     @Autowired
     IProductService productService;
+
+    @PostMapping("search")
+    public ResponseEntity<List<ProductDTO>> searchProduct(@RequestBody SearchRequestDTO searchRequestDTO) {
+        List<ProductDTO> list = productService.searchProduct(
+                searchRequestDTO.getText(),
+                searchRequestDTO.getFields(),
+                searchRequestDTO.getLimit()
+        );
+        System.out.println(list);
+
+        return ResponseEntity.ok().body(list);
+    }
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getProductsByCategory(@RequestParam(value = "cid", defaultValue = "0") Optional<Long> cid) {

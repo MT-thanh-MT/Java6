@@ -2,6 +2,8 @@ package thi.app.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -12,20 +14,26 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Set;
 
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "tb_products")
+@Indexed
 public class Product extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotNull
     @Size(max = 255)
     @Column(length = 255)
+    @FullTextField
     private String name;
 
     @Size(max = 256)

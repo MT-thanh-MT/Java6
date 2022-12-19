@@ -6,7 +6,7 @@ import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
